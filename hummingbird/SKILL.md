@@ -487,7 +487,7 @@ app.addServices(fluent)
 import HummingbirdTesting
 import Testing
 
-@Test func testHealthEndpoint() async throws {
+@Test func `health endpoint returns ok`() async throws {
     let router = Router()
     router.get("/health") { _, _ -> HTTPResponse.Status in .ok }
 
@@ -500,7 +500,7 @@ import Testing
     }
 }
 
-@Test func testCreateUser() async throws {
+@Test func `creates user`() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in

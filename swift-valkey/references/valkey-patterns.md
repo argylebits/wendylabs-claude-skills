@@ -554,7 +554,7 @@ final class ValkeyClientMetrics: ConnectionPoolObservabilityDelegate {
 Create testable channel handlers without network:
 
 ```swift
-@Test func testCommandExecution() async throws {
+@Test func `executes command`() async throws {
     let channel = NIOAsyncTestingChannel()
     let handler = ValkeyChannelHandler(configuration: .init())
     try await channel.pipeline.addHandler(handler)
@@ -578,7 +578,7 @@ Create testable channel handlers without network:
     #expect(result.string == "hello")
 }
 
-@Test func testPipelineExecution() async throws {
+@Test func `executes pipeline`() async throws {
     let channel = NIOAsyncTestingChannel()
     let handler = ValkeyChannelHandler(configuration: .init())
     try await channel.pipeline.addHandler(handler)

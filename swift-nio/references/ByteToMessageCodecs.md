@@ -483,7 +483,7 @@ Outbound: Network <- MessageToByteHandler <- ApplicationHandler
 Use `NIOAsyncTestingChannel` for unit testing:
 
 ```swift
-@Test func testDecoder() async throws {
+@Test func `decodes message`() async throws {
     let channel = NIOAsyncTestingChannel()
     try await channel.pipeline.addHandler(ByteToMessageHandler(MyDecoder()))
 
@@ -499,7 +499,7 @@ Use `NIOAsyncTestingChannel` for unit testing:
     #expect(decoded?.payload == "Hello")
 }
 
-@Test func testEncoder() async throws {
+@Test func `encodes message`() async throws {
     let channel = NIOAsyncTestingChannel()
     try await channel.pipeline.addHandler(MessageToByteHandler(MyEncoder()))
 
