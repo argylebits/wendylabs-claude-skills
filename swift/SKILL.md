@@ -21,6 +21,40 @@ Load these files as needed for specific topics:
 
 Keep types and functions internal unless they need to be public for external use. This prevents accidental exposure of implementation details and makes access level errors easier to fix.
 
+### Member Organization
+
+Sort members by visibility in this order:
+
+1. Public
+2. Internal
+3. Private
+
+Public members should come first and be grouped by topic using `// MARK: - ...` sections that read like Apple API reference groups. Put an empty line both above and below every `// MARK: - ...` heading. Prefer present-progressive gerund phrases that describe the capability, such as:
+
+```swift
+// MARK: - Working with Child Items
+
+public func addChild(_ child: Child) { ... }
+
+// MARK: - Managing Life-Cycle
+
+public func start() async throws { ... }
+```
+
+Use visibility markers for non-public sections:
+
+```swift
+// MARK: - Internal
+
+internal func prepareStorage() { ... }
+
+// MARK: - Private
+
+private func rebuildIndex() { ... }
+```
+
+Do not mix internal or private helpers into public topic sections. If public API has only one obvious topic, a single public `// MARK: - <Topic>` is enough before the internal/private sections.
+
 ### Foundation Avoidance Policy
 
 **Avoid Foundation in core library code when possible:**
