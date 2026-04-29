@@ -21,6 +21,25 @@ Load these files as needed for specific topics:
 
 Keep types and functions internal unless they need to be public for external use. This prevents accidental exposure of implementation details and makes access level errors easier to fix.
 
+### Protocol Conformance Organization
+
+Choose conformance placement based on what the protocol means:
+
+- If the protocol represents an **"is-a" relationship**, declare the conformance inline with the type declaration.
+  - Example: `public enum BlahError: Error { ... }`
+- If the protocol describes an **ability** of a type, typically an `-able` protocol, put the conformance in an extension at the bottom of the same file as the protocol.
+  - Use a `// MARK: - <ProtocolName>` heading immediately before the extension.
+
+```swift
+public struct Blah { ... }
+
+// MARK: - Codable
+
+extension Blah: Codable {
+    // Codable-specific implementation
+}
+```
+
 ### Foundation Avoidance Policy
 
 **Avoid Foundation in core library code when possible:**
