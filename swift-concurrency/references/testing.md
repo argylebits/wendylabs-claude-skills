@@ -19,7 +19,7 @@ XCTest patterns are included for legacy codebases.
 ```swift
 @Test
 @MainActor
-func `empty query returns all articles`() async {
+func emptyQuery() async {
     let searcher = ArticleSearcher()
     await searcher.search("")
     #expect(searcher.results == ArticleSearcher.allArticles)
@@ -30,14 +30,14 @@ func `empty query returns all articles`() async {
 - `@Test` macro instead of `XCTestCase`
 - `#expect` instead of `XCTAssert`
 - Structs preferred over classes
-- Prefer backtick-escaped, sentence-style test function names; no `test` prefix required
+- No `test` prefix required
 
 ### Testing with actors
 
 ```swift
 @Test
 @MainActor
-func `search returns results`() async {
+func searchReturnsResults() async {
     let searcher = ArticleSearcher()
     await searcher.search("swift")
     #expect(!searcher.results.isEmpty)
@@ -55,7 +55,7 @@ When testing unstructured tasks:
 ```swift
 @Test
 @MainActor
-func `search task completes`() async {
+func searchTaskCompletes() async {
     let searcher = ArticleSearcher()
     
     await withCheckedContinuation { continuation in
@@ -81,7 +81,7 @@ For structured async code:
 ```swift
 @Test
 @MainActor
-func `search triggers observation`() async {
+func searchTriggersObservation() async {
     let searcher = ArticleSearcher()
     
     await confirmation { confirm in
@@ -120,7 +120,7 @@ final class DatabaseTests {
     }
     
     @Test
-    func `inserts data`() async throws {
+    func insertsData() async throws {
         try await database.insert(item)
         #expect(await database.count() == 1)
     }
@@ -162,14 +162,14 @@ struct Environment {
 @MainActor
 final class DatabaseTests {
     @Test
-    func `inserts data`() async throws {
+    func insertsData() async throws {
         try await Environment.database.insert(item)
     }
 }
 
 // Or apply to individual test
 @Test(DatabaseTrait())
-func `uses database trait`() async throws {
+func specificTest() async throws {
     // Test code
 }
 ```
@@ -265,7 +265,7 @@ final class MyTests: XCTestCase {
 ```swift
 @Test
 @MainActor
-func `view model updates`() async {
+func viewModelUpdates() async {
     let viewModel = ViewModel()
     await viewModel.loadData()
     #expect(viewModel.items.count > 0)
@@ -276,7 +276,7 @@ func `view model updates`() async {
 
 ```swift
 @Test
-func `preserves actor isolation`() async {
+func actorIsolation() async {
     let store = DataStore()
     await store.insert(item)
     let count = await store.count()
@@ -288,7 +288,7 @@ func `preserves actor isolation`() async {
 
 ```swift
 @Test
-func `debounced search only executes last query`() async throws {
+func debouncedSearch() async throws {
     try await withMainSerialExecutor {
         let searcher = DebouncedSearcher()
         
@@ -312,7 +312,7 @@ func `debounced search only executes last query`() async throws {
 
 ```swift
 @Test
-func `task group processes all items`() async throws {
+func taskGroupProcessesAll() async throws {
     let processor = BatchProcessor()
     
     let results = await withTaskGroup(of: Int.self) { group in
@@ -337,7 +337,7 @@ func `task group processes all items`() async throws {
 
 ```swift
 @Test
-func `view model deallocates`() async {
+func viewModelDeallocates() async {
     var viewModel: ViewModel? = ViewModel()
     weak var weakViewModel = viewModel
     
@@ -354,7 +354,7 @@ func `view model deallocates`() async {
 
 ```swift
 @Test
-func `does not create retain cycle`() async {
+func noRetainCycle() async {
     var manager: Manager? = Manager()
     weak var weakManager = manager
     
@@ -394,7 +394,7 @@ final class MyTests: XCTestCase {
 @Suite
 struct MyTests {
     @Test
-    func `example behavior matches expected value`() async {
+    func example() async {
         #expect(value == expected)
     }
 }

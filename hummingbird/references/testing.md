@@ -27,7 +27,7 @@ import Hummingbird
 import HummingbirdTesting
 import Testing
 
-@Test func `health endpoint returns ok`() async throws {
+@Test func healthEndpoint() async throws {
     let router = Router()
     router.get("/health") { _, _ -> HTTPResponse.Status in .ok }
 
@@ -46,7 +46,7 @@ import Testing
 Use `.live` mode for full HTTP testing:
 
 ```swift
-@Test func `live server responds`() async throws {
+@Test func liveServerTest() async throws {
     let app = buildApplication()
 
     try await app.test(.live) { client in
@@ -62,7 +62,7 @@ Use `.live` mode for full HTTP testing:
 ### GET Requests
 
 ```swift
-@Test func `gets user`() async throws {
+@Test func getUser() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -82,7 +82,7 @@ Use `.live` mode for full HTTP testing:
 ### POST with JSON Body
 
 ```swift
-@Test func `creates user`() async throws {
+@Test func createUser() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -108,7 +108,7 @@ Use `.live` mode for full HTTP testing:
 ### With Query Parameters
 
 ```swift
-@Test func `searches users`() async throws {
+@Test func searchUsers() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -128,7 +128,7 @@ Use `.live` mode for full HTTP testing:
 ### With Headers
 
 ```swift
-@Test func `sends authenticated request`() async throws {
+@Test func authenticatedRequest() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -244,7 +244,7 @@ func buildApplication(userRepository: UserRepository) -> some ApplicationProtoco
 }
 
 // Test
-@Test func `gets user with mock`() async throws {
+@Test func getUserWithMock() async throws {
     let mockRepo = MockUserRepository()
     await mockRepo.create(User(id: 1, name: "Alice"))
 
@@ -273,7 +273,7 @@ struct TestRequestContext: RequestContext, AuthRequestContext {
     }
 }
 
-@Test func `rejects unauthenticated protected endpoint`() async throws {
+@Test func protectedEndpoint() async throws {
     let router = Router(context: TestRequestContext.self)
 
     router.get("/me") { request, context -> User in
@@ -300,7 +300,7 @@ struct TestRequestContext: RequestContext, AuthRequestContext {
 ## Error Testing
 
 ```swift
-@Test func `returns not found error`() async throws {
+@Test func notFoundError() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -310,7 +310,7 @@ struct TestRequestContext: RequestContext, AuthRequestContext {
     }
 }
 
-@Test func `returns validation error`() async throws {
+@Test func validationError() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -328,7 +328,7 @@ struct TestRequestContext: RequestContext, AuthRequestContext {
     }
 }
 
-@Test func `returns unauthorized error`() async throws {
+@Test func unauthorizedError() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in
@@ -345,7 +345,7 @@ struct TestRequestContext: RequestContext, AuthRequestContext {
 ### Database Integration
 
 ```swift
-@Test func `creates user through integration flow`() async throws {
+@Test func createUserIntegration() async throws {
     // Setup test database
     let db = try await TestDatabase.create()
     try await db.migrate()
@@ -380,7 +380,7 @@ struct TestRequestContext: RequestContext, AuthRequestContext {
 ### Multiple Requests
 
 ```swift
-@Test func `completes user workflow`() async throws {
+@Test func userWorkflow() async throws {
     let app = buildApplication()
 
     try await app.test(.router) { client in

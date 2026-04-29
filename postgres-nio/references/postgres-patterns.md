@@ -916,7 +916,7 @@ public struct PostgresCopyFromWriter: Sendable {
 Test channel handlers without network:
 
 ```swift
-@Test func `deduplicates prepared statements`() async throws {
+@Test func testPreparedStatementDeduplication() async throws {
     let eventLoop = NIOAsyncTestingEventLoop()
     let channel = try await NIOAsyncTestingChannel(loop: eventLoop) { channel in
         try channel.pipeline.syncOperations.addHandlers(

@@ -353,7 +353,7 @@ struct InMemoryTestClient: TestClientProtocol { ... }  // Unit testing, no netwo
 struct LiveTestClient: TestClientProtocol { ... }      // Integration testing
 
 // Usage in tests
-@Test func `handles endpoint`() async throws {
+@Test func testEndpoint() async throws {
     let app = buildApplication()
 
     // .router uses InMemoryTestClient (fast, no network)
