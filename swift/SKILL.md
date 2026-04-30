@@ -17,6 +17,19 @@ Load these files as needed for specific topics:
 - **`references/swift-testing.md`** - Swift Testing framework: @Test macro, #expect/#require assertions, traits, parameterized tests, test suites, parallel execution, XCTest migration
 - **`references/debugging.md`** - Debugging tips: Terminal UI on Linux (alternate screen buffer), GitHub Actions log analysis
 
+### Swift Testing Test Names
+
+Prefer backtick-escaped, sentence-style test function names so the test description lives in the function name:
+
+```swift
+@Test
+func `does something very special in a certain edge case`() async throws {
+    // ...
+}
+```
+
+Use `@Test("...")` display names only when a separate display name is specifically needed.
+
 ### Access Modifiers
 
 Keep types and functions internal unless they need to be public for external use. This prevents accidental exposure of implementation details and makes access level errors easier to fix.
@@ -55,6 +68,24 @@ private func rebuildIndex() { ... }
 
 Do not mix internal or private helpers into public topic sections. If public API has only one obvious topic, a single public `// MARK: - <Topic>` is enough before the internal/private sections.
 
+### Protocol Conformance Organization
+
+Choose conformance placement based on what the protocol means:
+
+- If the protocol represents an **"is-a" relationship**, declare the conformance inline with the type declaration.
+  - Example: `public enum BlahError: Error { ... }`
+- If the protocol describes an **ability** of a type, typically an `-able` protocol, put the conformance in an extension at the bottom of the same file as the protocol.
+  - Use a `// MARK: - <ProtocolName>` heading immediately before the extension.
+
+```swift
+public struct Blah { ... }
+
+// MARK: - Codable
+
+extension Blah: Codable {
+    // Codable-specific implementation
+}
+```
 ### Foundation Avoidance Policy
 
 **Avoid Foundation in core library code when possible:**
