@@ -66,7 +66,7 @@ internal func prepareStorage() { ... }
 private func rebuildIndex() { ... }
 ```
 
-Do not mix internal or private helpers into public topic sections. If public API has only one obvious topic, a single public `// MARK: - <Topic>` is enough before the internal/private sections.
+Do not mix internal or private helpers into public topic sections. If public API has only one obvious topic, there is no need for a `// MARK: - <Topic>` before the internal/private sections.
 
 ### Protocol Conformance Organization
 
